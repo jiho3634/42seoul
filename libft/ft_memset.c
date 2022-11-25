@@ -6,30 +6,24 @@
 /*   By: jihokim2 <jihokim2@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 10:59:24 by jihokim2          #+#    #+#             */
-/*   Updated: 2022/11/21 20:49:39 by jihokim2         ###   ########.fr       */
+/*   Updated: 2022/11/25 11:55:28 by jihokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
 void	*ft_memset(void *b, int c, unsigned long len)
 {
-	unsigned char	*b_uc;
-	unsigned char	c_uc;
+	unsigned char	*b2;
+	unsigned char	c2;
 	unsigned long	i;
 
-	b_uc = (unsigned char *) b;
-	c_uc = (unsigned char) c;
-	i = 0;
-	while (len - i > 0)
-	{
-		*(b_uc + i) = c_uc;
-		i++;
-	}
+	b2 = (unsigned char *) b;
+	c2 = (unsigned char) c;
+	i = -1;
+	while (++i < len)
+		*(b2 + i) = c2;
 	return (b);
 }
 /*
-
 #include <string.h>
 #include <stdio.h>
 

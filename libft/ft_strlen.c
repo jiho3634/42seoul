@@ -6,22 +6,19 @@
 /*   By: jihokim2 <jihokim2@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 19:25:09 by jihokim2          #+#    #+#             */
-/*   Updated: 2022/11/21 20:47:12 by jihokim2         ###   ########.fr       */
+/*   Updated: 2022/11/24 13:58:29 by jihokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
 
 size_t	ft_strlen(const char *s)
 {
 	size_t	len;
 
 	len = 0;
-	while (*s)
-	{
+	while (s[len])
 		len++;
-		s++;
-	}
 	return (len);
 }
 /*

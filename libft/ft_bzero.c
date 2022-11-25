@@ -6,11 +6,11 @@
 /*   By: jihokim2 <jihokim2@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 18:45:32 by jihokim2          #+#    #+#             */
-/*   Updated: 2022/11/21 20:49:17 by jihokim2         ###   ########.fr       */
+/*   Updated: 2022/11/24 13:47:00 by jihokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
 
 void	ft_bzero(void *s, size_t n)
 {

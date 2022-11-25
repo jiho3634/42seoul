@@ -6,18 +6,18 @@
 /*   By: jihokim2 <jihokim2@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 10:43:12 by jihokim2          #+#    #+#             */
-/*   Updated: 2022/11/22 17:32:01 by jihokim2         ###   ########.fr       */
+/*   Updated: 2022/11/24 20:15:29 by jihokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "libft.h"
 
 int	ft_atoi(const char *str)
 {
 	int	answer;
 	int	sign;
 
-	while ((*str >= 8 && *str <= 12) || *str == 32)
+	if (*str == 0)
+		return (0);
+	while ((*str >= 9 && *str <= 13) || *str == 32)
 		str++;
 	sign = 1;
 	if (*str == '+' || *str == '-')

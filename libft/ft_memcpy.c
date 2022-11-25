@@ -6,20 +6,24 @@
 /*   By: jihokim2 <jihokim2@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 10:27:33 by jihokim2          #+#    #+#             */
-/*   Updated: 2022/11/21 20:48:06 by jihokim2         ###   ########.fr       */
+/*   Updated: 2022/11/24 12:32:58 by jihokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
 	size_t	i;
+	char	*dst2;
+	char	*src2;
 
+	dst2 = (char *) dst;
+	src2 = (char *) src;
 	i = 0;
 	while (i < n)
 	{
-		*((char *)dst + i) = *((char *)src + i);
+		*(dst2 + i) = *(src2 + i);
 		i++;
 	}
 	return (dst);
@@ -27,7 +31,7 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 /*
 #include <string.h>
 #include <stdio.h>
-
+#include <unistd.h>
 int	main(void)
 {
 	char	dst[16] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o'};
@@ -59,7 +63,7 @@ int	main(void)
 	}
 	printf("\n");
 
-	n = 12;
+	n = 13;
 	memcpy(dst, src, n);
 	ft_memcpy(dst_ft, src_ft, n);
 
@@ -68,6 +72,8 @@ int	main(void)
 
 	printf("\nafter\n");
 	printf("dst     : %s\n", dst);
+	write(1, dst, 16);
+	write(1, "\n", 1);
 	printf("dst_ft  : %s\n", dst_ft);
 	printf("dst2    : ");
 	i = 0;

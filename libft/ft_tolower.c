@@ -6,13 +6,11 @@
 /*   By: jihokim2 <jihokim2@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 20:39:29 by jihokim2          #+#    #+#             */
-/*   Updated: 2022/11/21 20:47:50 by jihokim2         ###   ########.fr       */
+/*   Updated: 2022/11/24 14:13:27 by jihokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int	tolower(int c)
+int	ft_tolower(int c)
 {
 	if (c >= 65 && c <= 90)
 		return (c + 32);

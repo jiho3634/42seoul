@@ -6,13 +6,13 @@
 /*   By: jihokim2 <jihokim2@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 09:42:09 by jihokim2          #+#    #+#             */
-/*   Updated: 2022/11/22 15:08:37 by jihokim2         ###   ########.fr       */
+/*   Updated: 2022/11/24 13:54:30 by jihokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <unistd.h>
 
-void	print_n(int n, int fd, char *arr)
+static void	print_n(int n, int fd, char *arr)
 {
 	int	i;
 

@@ -6,11 +6,11 @@
 /*   By: jihokim2 <jihokim2@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 14:11:40 by jihokim2          #+#    #+#             */
-/*   Updated: 2022/11/22 17:35:02 by jihokim2         ###   ########.fr       */
+/*   Updated: 2022/11/24 13:55:48 by jihokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
 
 int	check(char str, char *charset)
 {

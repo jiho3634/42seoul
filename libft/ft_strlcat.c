@@ -6,36 +6,36 @@
 /*   By: jihokim2 <jihokim2@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 19:36:05 by jihokim2          #+#    #+#             */
-/*   Updated: 2022/11/16 17:41:17 by jihokim2         ###   ########.fr       */
+/*   Updated: 2022/11/24 15:24:39 by jihokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stddef.h>
 
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	size_t	dest_size;
-	size_t	src_size;
+	size_t	dst_len;
+	size_t	src_len;
 	size_t	i;
 
-	dest_size = 0;
-	while (dst[dest_size])
-		dest_size++;
-	src_size = 0;
-	while (src[src_size])
-		src_size++;
-	i = 0;
-	if (dest_size > dstsize)
-		return (dstsize + src_size);
-	else if (dest_size <= dstsize)
+	dst_len = 0;
+	while (dst[dst_len])
+		dst_len++;
+	src_len = 0;
+	while (src[src_len])
+		src_len++;
+	if ((dst_len > dstsize) || dstsize == 0)
+		return (src_len + dstsize);
+	else if (dst_len <= dstsize)
 	{
-		while ((dest_size + i < dstsize - 1) && src[i])
+		i = 0;
+		while ((dst_len + i + 1 < dstsize) && src[i])
 		{
-			dst[dest_size + i] = src[i];
+			dst[dst_len + i] = src[i];
 			i++;
 		}
-		dst[dest_size + i] = '\0';
-		return (dest_size + src_size);
+		dst[dst_len + i] = '\0';
+		return (src_len + dst_len);
 	}
 	return (0);
 }

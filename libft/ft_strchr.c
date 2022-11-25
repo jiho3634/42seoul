@@ -6,21 +6,37 @@
 /*   By: jihokim2 <jihokim2@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 20:40:57 by jihokim2          #+#    #+#             */
-/*   Updated: 2022/11/22 18:01:19 by jihokim2         ###   ########.fr       */
+/*   Updated: 2022/11/25 13:08:44 by jihokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "libft.h"
-
 char	*ft_strchr(const char *s, int c)
 {
-	while (*s)
+	int		i;
+	char	c2;
+
+	c2 = (char) c;
+	i = 0;
+	while (s[i])
 	{
-		if (*s == c)
-			return ((char *)s);
-		s++;
+		if (s[i] == c2)
+			return ((char *) &s[i]);
+		i++;
 	}
-	if (s == 0 && c == 0)
-		return ((char *)s);
+	if (!c2)
+		return ((char *) &s[i]);
 	return (0);
 }
+/*
+#include <string.h>
+#include <stdio.h>
+int	main(void)
+{
+	char	*str;
+	int 	c = '\0';
+
+	str = "";
+	printf("%p\n", ft_strchr(str,c));
+	printf("%p\n", strchr(str, c));
+	return (0);
+}
+*/
