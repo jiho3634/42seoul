@@ -6,119 +6,94 @@
 /*   By: jihokim2 <jihokim2@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 14:11:40 by jihokim2          #+#    #+#             */
-/*   Updated: 2022/11/24 13:55:48 by jihokim2         ###   ########.fr       */
+/*   Updated: 2022/12/01 17:17:19 by jihokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-int	check(char str, char *charset)
+static char	**malloc_1(char const *s, char c)
 {
-	int	i;
+	char	**s2;
+	size_t	count;
+	size_t	i;
 
-	if (str == 0)
-		return (0);
-	i = 0;
-	while (charset[i])
-	{
-		if (str == charset[i])
-			return (0);
-		else
-			i++;
-	}
-	return (1);
-}
-
-int	word_count(const char *str, char *charset)
-{
-	int	i;
-	int	flag;
-	int	count;
-
-	i = 0;
 	count = 0;
-	flag = 0;
-	while (str[i])
+	i = 0;
+	while (s[i])
 	{
-		if ((flag == 0) && (check(str[i], charset) == 1))
-		{
+		if (s[i] != c && (s[i + 1] == c || s[i + 1] == 0))
 			count++;
-			flag = 1;
-		}
-		else if ((flag == 1) && (check(str[i], charset) == 0))
-			flag = 0;
 		i++;
 	}
-	return (count);
+	s2 = (char **) malloc (sizeof(char *) * (count + 1));
+	if (!s2)
+		return (0);
+	s2[count] = 0;
+	return (s2);
 }
 
-void	char_count(const char *str, char *charset, char **split, int word_count)
+static char	*ft_strdup(const char *s1, int len)
 {
-	int	arr[4];
+	char	*ptr;
 
-	arr[0] = 0;
-	arr[1] = 0;
-	arr[2] = 0;
-	arr[3] = 0;
-	while (arr[0] < word_count)
+	if (len == 0)
 	{
-		if (check(str[arr[1]], charset) == 1)
-		{
-			arr[2]++;
-			if (arr[3] == 0)
-				arr[3] = 1;
-		}
-		else if ((arr[3] == 1 && check(str[arr[1]], charset) == 0))
-		{
-			split[arr[0]] = (char *) malloc (sizeof(char) * (arr[2] + 1));
-			arr[2] = 0;
-			arr[0]++;
-			arr[3] = 0;
-		}
-		arr[1]++;
+		ptr = (char *)malloc (sizeof(char));
+		if (!ptr)
+			return (0);
+		*ptr = 0;
+		return (ptr);
 	}
+	else
+	{
+		ptr = (char *) malloc (sizeof(char) * (len + 1));
+		if (!ptr)
+			return (0);
+		*(ptr + len) = 0;
+		while (len-- > 0)
+			*(ptr + len) = *(s1 + len);
+	}
+	return (ptr);
 }
 
-void	copy(const char *str, char *charset, char **split, int index)
+static char	**malloc_2(char const *s, char c, char **s2, int count)
 {
-	int	flag;
 	int	i;
-	int	j;
 
-	flag = 0;
-	i = 0;
-	j = 0;
-	while (i < index)
+	i = -1;
+	while (*s)
 	{
-		if (check(*str, charset) == 1)
+		if (*s != 0 && *s != c)
 		{
-			split[i][j] = *str;
-			j++;
-			if (flag == 0)
-				flag = 1;
+			count++;
+			if (*(s + 1) == 0 || *(s + 1) == c)
+			{
+				s2[++i] = ft_strdup(s - count + 1, count);
+				count = 0;
+				if (!s2[i])
+				{
+					while (i >= 0)
+						free (s2[i--]);
+					free (s2);
+					return (0);
+				}
+			}
 		}
-		else if ((flag == 1) && check(*str, charset) == 0)
-		{
-			split[i][j] = 0;
-			j = 0;
-			i++;
-			flag = 0;
-		}
-		str++;
+		s++;
 	}
+	return (s2);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**split;
-	int		index;
+	char	**s2;
 
-	index = word_count(s, &c);
-	split = (char **) malloc (sizeof(char *) * (index + 1));
-	if (split == 0)
+	s2 = malloc_1(s, c);
+	if (!s2)
 		return (0);
-	split[index] = 0;
-	char_count(s, &c, split, index);
-	copy(s, &c, split, index);
-	return (split);
+	s2 = malloc_2(s, c, s2, 0);
+	if (!s2)
+		return (0);
+	return (s2);
 }

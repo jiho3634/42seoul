@@ -6,12 +6,11 @@
 /*   By: jihokim2 <jihokim2@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 15:04:55 by jihokim2          #+#    #+#             */
-/*   Updated: 2022/11/24 13:48:13 by jihokim2         ###   ########.fr       */
+/*   Updated: 2022/12/01 20:03:31 by jihokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>
 
 static int	ft_nbrlen(long long n)
 {
@@ -66,6 +65,7 @@ char	*ft_itoa(int n)
 	return (str);
 }
 /*
+#include <stdio.h>
 int	main(void)
 {
 	int n = -2147483648;

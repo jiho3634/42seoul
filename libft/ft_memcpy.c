@@ -6,7 +6,7 @@
 /*   By: jihokim2 <jihokim2@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 10:27:33 by jihokim2          #+#    #+#             */
-/*   Updated: 2022/11/24 12:32:58 by jihokim2         ###   ########.fr       */
+/*   Updated: 2022/12/01 20:02:02 by jihokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,18 @@
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	size_t	i;
-	char	*dst2;
-	char	*src2;
+	size_t			i;
+	unsigned char	*dst2;
+	unsigned char	*src2;
 
-	dst2 = (char *) dst;
-	src2 = (char *) src;
+	if (!dst && !src)
+		return (0);
+	dst2 = (unsigned char *) dst;
+	src2 = (unsigned char *) src;
 	i = 0;
 	while (i < n)
 	{
-		*(dst2 + i) = *(src2 + i);
+		dst2[i] = src2[i];
 		i++;
 	}
 	return (dst);

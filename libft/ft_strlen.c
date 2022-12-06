@@ -27,9 +27,9 @@ size_t	ft_strlen(const char *s)
 
 int main(void)
 {
-	char	s;
+	char	*s;
 
-	s = "abcdefg";
+	s = 0;
 
 	printf("%lu\n", strlen(s));
 	printf("%lu\n", ft_strlen(s));

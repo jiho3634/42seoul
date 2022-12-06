@@ -1,40 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jihokim2 <jihokim2@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/22 17:23:14 by jihokim2          #+#    #+#             */
-/*   Updated: 2022/11/24 13:57:28 by jihokim2         ###   ########.fr       */
+/*   Created: 2022/12/05 14:43:37 by jihokim2          #+#    #+#             */
+/*   Updated: 2022/12/05 15:08:30 by jihokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include "libft.h"
 
-static size_t	ft_strlen(const char *s)
+t_list	*ft_lstnew(void *content)
 {
-	size_t	len;
+	t_list	*node;
 
-	len = 0;
-	while (s[len])
-		len++;
-	return (len);
-}
-
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*s3;
-	int		i;
-
-	s3 = (char *) malloc (ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!s3)
-		return (0);
-	i = 0;
-	while (*s1)
-		s3[i++] = *(s1++);
-	while (*s2)
-		s3[i++] = *(s2++);
-	s3[i] = 0;
-	return (s3);
+	node = (t_list *) malloc(sizeof(t_list));
+	if (node)
+	{
+		node -> content = content;
+		node -> next = NULL;
+	}
+	return (node);
 }

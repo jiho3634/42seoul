@@ -18,6 +18,8 @@ static void	*ft_memrcpy(void *dst, const void *src, size_t n)
 	char	*dst2;
 	char	*src2;
 
+	if (!dst && !src)
+		return (0);
 	dst2 = (char *) dst;
 	src2 = (char *) src;
 	i = 1;
@@ -35,6 +37,8 @@ static void	*ft_memcpy(void *dst, const void *src, size_t n)
 	char	*dst2;
 	char	*src2;
 
+	if (!dst && !src)
+		return (0);
 	dst2 = (char *) dst;
 	src2 = (char *) src;
 	i = 0;
@@ -48,6 +52,8 @@ static void	*ft_memcpy(void *dst, const void *src, size_t n)
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
+	if (!dst && !src)
+		return (0);
 	if (dst <= src)
 		ft_memcpy(dst, src, len);
 	else

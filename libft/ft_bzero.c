@@ -6,7 +6,7 @@
 /*   By: jihokim2 <jihokim2@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 18:45:32 by jihokim2          #+#    #+#             */
-/*   Updated: 2022/11/24 13:47:00 by jihokim2         ###   ########.fr       */
+/*   Updated: 2022/12/01 19:54:15 by jihokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	ft_bzero(void *s, size_t n)
 	size_t	i;
 	char	*s_c;
 
-	i = 0;
 	s_c = (char *)s;
+	i = 0;
 	while (i < n)
 	{
 		*(s_c + i) = 0;

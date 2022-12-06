@@ -9,8 +9,9 @@
 /*   Updated: 2022/11/25 11:55:28 by jihokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include <stddef.h>
 
-void	*ft_memset(void *b, int c, unsigned long len)
+void	*ft_memset(void *b, int c, size_t len)
 {
 	unsigned char	*b2;
 	unsigned char	c2;
@@ -18,9 +19,12 @@ void	*ft_memset(void *b, int c, unsigned long len)
 
 	b2 = (unsigned char *) b;
 	c2 = (unsigned char) c;
-	i = -1;
-	while (++i < len)
+	i = 0;
+	while (i < len)
+	{
 		*(b2 + i) = c2;
+		i++;
+	}
 	return (b);
 }
 /*
