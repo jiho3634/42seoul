@@ -5,52 +5,57 @@
 #                                                     +:+ +:+         +:+      #
 #    By: jihokim2 <jihokim2@student.42seoul.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/11/14 20:52:28 by jihokim2          #+#    #+#              #
-#    Updated: 2022/11/22 18:12:16 by jihokim2         ###   ########.fr        #
+#    Created: 2022/12/07 19:08:39 by jihokim2          #+#    #+#              #
+#    Updated: 2022/12/07 19:09:01 by jihokim2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS = ft_isalpha.c ft_memcmp.c ft_putnbr_fd.c ft_strjoin.c ft_strnstr.c \
-	   ft_isascii.c ft_memcpy.c ft_putstr_fd.c ft_strlcat.c ft_strrchr.c \
-	   ft_atoi.c ft_isdigit.c ft_memmove.c ft_split.c ft_strlcpy.c ft_strtrim.c \
-	   ft_bzero.c ft_isprint.c ft_memset.c ft_strchr.c ft_strlen.c ft_substr.c \
-	   ft_calloc.c ft_itoa.c ft_putchar_fd.c ft_strdup.c ft_strmapi.c ft_tolower.c \
-	   ft_isalnum.c ft_memchr.c ft_putendl_fd.c ft_striteri.c ft_strncmp.c ft_toupper.c 
+NAME	=	libft.a
+CC		=	cc
+CFLAGS	=	-Wall -Wextra -Werror
+AR		=	ar
+ARFLAGS	=	-src
+INC		=	./libft.h
+SRCS	=	ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c ft_isalpha.c \
+			ft_isascii.c ft_isdigit.c ft_isprint.c ft_itoa.c ft_memchr.c \
+			ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c ft_putchar_fd.c \
+			ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c ft_split.c ft_strchr.c \
+			ft_strdup.c ft_striteri.c ft_strjoin.c ft_strlcat.c ft_strlcpy.c \
+			ft_strlen.c ft_strmapi.c ft_strncmp.c ft_strnstr.c ft_strrchr.c \
+			ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c
+SRCS_B	=	ft_lstadd_back_bonus.c ft_lstadd_front_bonus.c ft_lstclear_bonus.c \
+			ft_lstdelone_bonus.c ft_lstiter_bonus.c ft_lstlast_bonus.c \
+			ft_lstmap_bonus.c ft_lstnew_bonus.c ft_lstsize_bonus.c
+OBJS	=	$(SRCS:.c=.o)
+OBJS_B	=	$(SRCS_B:.c=.o)
 
-SRCS_BONUS = ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c \
-			 ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c \
-			 ft_lstclear_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c
+ifdef BONUS
+	FILES =	$(OBJS) $(OBJS_B)
+else
+	FILES =	$(OBJS)
+endif
 
-NAME = libft.a
-OBJECTS = $(SRCS:.c=.o)
-OBJECTS_BONUS = $(SRCS_BONUS:.c=.o)
-CC = cc
-CFLAGS = -c -Wall -Wextra -Werror
+all		:	$(NAME)
+	sleep 1
 
-all : $(NAME)
+bonus	:
+	@make BONUS=1
 
-$(NAME) : $(OBJECTS)
-	ar rcs $(NAME) $(OBJECTS) 
+$(NAME)	:	$(FILES)
+	@$(AR) $(ARFLAGS) $@ $^
 
-$(OBJECTS) : libft.h $(SRCS)
-	$(CC) $(CFLAGS) $(SRCS)
+%.o		:	%.c
+	@$(CC) $(CFLAGS) -c $< -o $@ -I $(INC)
 
-bonus : $(OBJECTS_BONUS)
-	make fclean
-	ar rcs $(NAME) $(OBJECTS_BONUS)
+clean	:
+	@rm -f $(OBJS) $(OBJS_B)
 
-$(OBJECTS_BONUS) : libft.h $(SRCS_BONUS)
-	$(CC) $(CFLAGS) $(SRCS_BONUS)
+fclean	: 
+	@make clean
+	@rm -f $(NAME)
 
-clean :
-	rm -f $(OBJECTS) $(OBJECTS_BONUS)
-
-fclean : 
-	make clean
-	rm -f $(NAME)
-
-re :
+re		:
 	make fclean
 	make all
 
-.PHONY : all clean fclean re bonus
+.PHONY	:	all bonus clean fclean re

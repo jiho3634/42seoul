@@ -25,7 +25,7 @@ static size_t	ft_strlen(const char *s)
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*s3;
-	int		i;
+	size_t	i;
 
 	s3 = (char *) malloc (ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!s3)

@@ -33,7 +33,7 @@ static char	**malloc_1(char const *s, char c)
 	return (s2);
 }
 
-static char	*ft_strdup(const char *s1, int len)
+static char	*ft_strdup(const char *s1, size_t len)
 {
 	char	*ptr;
 
@@ -57,11 +57,11 @@ static char	*ft_strdup(const char *s1, int len)
 	return (ptr);
 }
 
-static char	**malloc_2(char const *s, char c, char **s2, int count)
+static char	**malloc_2(char const *s, char c, char **s2, size_t count)
 {
-	int	i;
+	size_t	i;
 
-	i = -1;
+	i = 0;
 	while (*s)
 	{
 		if (*s != 0 && *s != c)
@@ -69,7 +69,7 @@ static char	**malloc_2(char const *s, char c, char **s2, int count)
 			count++;
 			if (*(s + 1) == 0 || *(s + 1) == c)
 			{
-				s2[++i] = ft_strdup(s - count + 1, count);
+				s2[i] = ft_strdup(s - count + 1, count);
 				count = 0;
 				if (!s2[i])
 				{
@@ -78,6 +78,7 @@ static char	**malloc_2(char const *s, char c, char **s2, int count)
 					free (s2);
 					return (0);
 				}
+				i++;
 			}
 		}
 		s++;

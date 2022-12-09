@@ -9,19 +9,18 @@
 /*   Updated: 2022/11/24 19:26:11 by jihokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
 char	*ft_strrchr(const char *s, int c)
 {
-	int		i;
+	size_t	i;
 	char	c2;
 
 	c2 = (char) c;
-	i = 0;
-	while (s[i])
-		i++;
+	i = ft_strlen(s);
 	if (!c2)
 		return ((char *) &s[i]);
-	while (--i >= 0)
+	while (i-- > 0)
 	{
 		if (s[i] == c2)
 			return ((char *) &s[i]);

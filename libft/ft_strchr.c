@@ -9,17 +9,20 @@
 /*   Updated: 2022/11/25 13:08:44 by jihokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include <stddef.h>
+
 char	*ft_strchr(const char *s, int c)
 {
-	int		i;
+	size_t	i;
 	char	c2;
 
 	c2 = (char) c;
-	i = -1;
-	while (s[++i])
+	i = 0;
+	while (s[i])
 	{
 		if (s[i] == c2)
 			return ((char *) &s[i]);
+		i++;
 	}
 	if (!c2)
 		return ((char *) &s[i]);

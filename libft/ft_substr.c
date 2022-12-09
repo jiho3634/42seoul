@@ -9,23 +9,13 @@
 /*   Updated: 2022/11/25 12:26:00 by jihokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+#include "libft.h"
 #include <stdlib.h>
-
-static size_t	ft_strlen(const char *s)
-{
-	size_t	len;
-
-	len = 0;
-	while (s[len])
-		len++;
-	return (len);
-}
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char			*ptr;
-	unsigned int	i;
+	char	*ptr;
+	size_t	i;
 
 	if (ft_strlen(s) <= start)
 	{
@@ -49,18 +39,3 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	ptr[i] = 0;
 	return (ptr);
 }
-/*
-#include <stdio.h>
-int	main(void)
-{
-	char *s;
-	unsigned int start;
-	size_t len;
-
-	s = "lorem ipsum dolor sit amet";
-	start = 0;
-	len = 10; 
-	printf("%s\n", ft_substr(s, start, len));
-	return (0);
-}
-*/
