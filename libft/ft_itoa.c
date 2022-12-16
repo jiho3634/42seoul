@@ -19,12 +19,12 @@ static int	ft_nbrlen(long long n)
 	len = 0;
 	if (n <= 0)
 	{
-		n = -n;
+		n *= -1;
 		len = 1;
 	}
 	while (n > 0)
 	{
-		n = n / 10;
+		n /= 10;
 		len++;
 	}
 	return (len);
@@ -34,13 +34,13 @@ static void	ft_putnbr(char *str, long long n, long long len)
 {
 	if (n == 0)
 	{
-		str[0] = '0';
+		*str = '0';
 		return ;
 	}
 	else if (n < 0)
 	{
-		n = -n;
-		str[0] = '-';
+		n *= -1;
+		*str = '-';
 	}
 	while (n / 10 != 0 || n % 10 != 0)
 	{
@@ -64,14 +64,3 @@ char	*ft_itoa(int n)
 	str[len] = 0;
 	return (str);
 }
-/*
-#include <stdio.h>
-int	main(void)
-{
-	int n = -2147483648;
-	int n2 = 0;
-	printf("%s\n", ft_itoa(n));
-	printf("%s\n", ft_itoa(n2));
-	return (0);
-}
-*/

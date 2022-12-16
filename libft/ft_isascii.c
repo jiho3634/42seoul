@@ -16,20 +16,3 @@ int	ft_isascii(int c)
 		return (1);
 	return (0);
 }
-/*
-#include <ctype.h>
-#include <stdio.h>
-
-int main(void)
-{
-	int x;
-
-	x = -256;
-	while (x++ <= 255)
-	{
-		printf("  %d : %d\n", x, isascii(x));
-		printf("ft%d : %d\n", x, ft_isascii(x));
-	}
-	return (0);
-}
-*/

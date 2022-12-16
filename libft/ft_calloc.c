@@ -11,20 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-
-static void	*ft_memset(void *b, int c, unsigned long len)
-{
-	unsigned char	*b2;
-	unsigned char	c2;
-	unsigned long	i;
-
-	b2 = (unsigned char *) b;
-	c2 = (unsigned char) c;
-	i = -1;
-	while (++i < len)
-		*(b2 + i) = c2;
-	return (b);
-}
+#include "libft.h"
 
 void	*ft_calloc(size_t count, size_t size)
 {

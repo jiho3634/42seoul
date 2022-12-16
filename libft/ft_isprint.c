@@ -16,20 +16,3 @@ int	ft_isprint(int c)
 		return (1);
 	return (0);
 }
-/*
-#include <ctype.h>
-#include <stdio.h>
-
-int main(void)
-{
-	int x;
-
-	x = -256;
-	while (x++ <= 255)
-	{
-		printf("  %d : %d\n", x, isprint(x));
-		printf("ft%d : %d\n", x, ft_isprint(x));
-	}
-	return (0);
-}
-*/

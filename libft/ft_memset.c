@@ -27,32 +27,3 @@ void	*ft_memset(void *b, int c, size_t len)
 	}
 	return (b);
 }
-/*
-#include <string.h>
-#include <stdio.h>
-
-int	main(void)
-{
-	char	b[5];
-	char	b_ft[5];
-
-	for (int i = 0; i < 5; i++)
-		printf("%d ", b[i]);
-	printf("\n");
-	for (int i = 0; i < 5; i++)
-		printf("%d ", b_ft[i]);
-	printf("\n");
-	for (int j = 0; j <= 127; j++)
-	{
-		memset(b_ft, j, 5);
-		ft_memset(b, j, 5);
-		for (int i = 0; i < 5; i++)
-			printf("%d ", b[i]);
-		printf("\n");
-		for (int i = 0; i < 5; i++)
-			printf("%d ", b_ft[i]);
-		printf("\n");
-	}
-	return (0);
-}
-*/

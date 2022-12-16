@@ -10,51 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
-
-static t_list	*lstnew(void *content, void *(*f)(void *), \
-		void (*del)(void *))
-{
-	t_list	*node;
-	void	*temp;
-
-	if (!content || !(*f) || !*del)
-		return (0);
-	node = (t_list *) malloc(sizeof(t_list));
-	if (node)
-	{
-		temp = (*f)(content);
-		if (!temp)
-		{
-			free(node);
-			return (0);
-		}
-		node -> content = temp;
-		node -> next = NULL;
-	}
-	return (node);
-}
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*temp;
-	t_list	*head;
+	t_list	*temp_struct;
+	t_list	*new_lst;
+	void	*temp_content;
 
 	if (!lst)
 		return (NULL);
-	head = lstnew(lst -> content, *f, del);
-	lst = lst -> next;
-	while (lst && head)
+	new_lst = NULL;
+	while (lst)
 	{
-		temp = lstnew(lst -> content, *f, del);
-		if (!temp)
+		temp_content = f(lst -> content);
+		temp_struct = ft_lstnew(temp_content);
+		if (!temp_struct)
 		{
-			ft_lstclear(&head, del);
+			del(temp_content);
+			ft_lstclear(&new_lst, del);
 			return (NULL);
 		}
-		ft_lstadd_back(&head, temp);
+		ft_lstadd_back(&new_lst, temp_struct);
 		lst = lst -> next;
 	}
-	return (head);
+	return (new_lst);
 }

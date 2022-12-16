@@ -39,3 +39,18 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	ptr[i] = 0;
 	return (ptr);
 }
+/*
+#include <stdio.h>
+int	main(void)
+{
+	char *s;
+	unsigned int start;
+	size_t len;
+
+	s = "lorem ipsum dolor sit amet";
+	start = 0;
+	len = 10; 
+	printf("%s\n", ft_substr(s, start, len));
+	return (0);
+}
+*/

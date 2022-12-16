@@ -64,7 +64,7 @@ static char	**malloc_2(char const *s, char c, char **s2, size_t count)
 	i = 0;
 	while (*s)
 	{
-		if (*s != 0 && *s != c)
+		if (*s != c)
 		{
 			count++;
 			if (*(s + 1) == 0 || *(s + 1) == c)
@@ -73,8 +73,8 @@ static char	**malloc_2(char const *s, char c, char **s2, size_t count)
 				count = 0;
 				if (!s2[i])
 				{
-					while (i >= 0)
-						free (s2[i--]);
+					while (i > 0)
+						free (s2[--i]);
 					free (s2);
 					return (0);
 				}

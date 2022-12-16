@@ -16,20 +16,3 @@ int	ft_isalpha(int c)
 		return (1);
 	return (0);
 }
-/*
-#include <ctype.h>
-#include <stdio.h>
-
-int main(void)
-{
-	int x;
-
-	x = -1;
-	while (x++ <= 255)
-	{
-		printf("  %d : %d\n", x, isalpha(x));
-		printf("ft%d : %d\n", x, ft_isalpha(x));
-	}
-	return (0);
-}
-*/

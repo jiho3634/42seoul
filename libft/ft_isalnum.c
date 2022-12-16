@@ -14,24 +14,7 @@
 
 int	ft_isalnum(int c)
 {
-	if ((ft_isalpha(c) == 1) || (ft_isdigit(c) == 1))
+	if (ft_isalpha(c) || ft_isdigit(c))
 		return (1);
 	return (0);
 }
-/*
-#include <ctype.h>
-#include <stdio.h>
-
-int main(void)
-{
-	int x;
-
-	x = -1;
-	while (x++ <= 255)
-	{
-		printf("  %d : %d\n", x, isalnum(x));
-		printf("ft%d : %d\n", x, ft_isalnum(x));
-	}
-	return (0);
-}
-*/

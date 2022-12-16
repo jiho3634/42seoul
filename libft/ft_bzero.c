@@ -14,37 +14,14 @@
 
 void	ft_bzero(void *s, size_t n)
 {
-	char	*s_c;
+	size_t	i;
+	char	*ss;
 
-	s_c = (char *)s;
-	while (n--)
-		*(s_c++) = 0;
+	ss = (char *)s;
+	i = 0;
+	while (i < n)
+	{
+		*(ss + i) = 0;
+		i++;
+	}
 }
-/*
-#include <strings.h>
-#include <stdio.h>
-
-int	main(void)
-{
-	char	arr[10] = {70, 71, 72, 73, 74, 75, 76, 77, 78, 79};
-	char	arr_ft[10] = {70, 71, 72, 73, 74, 75, 76, 77, 78, 79};
-
-	for (int i = 0; i < 10; i++)
-		printf("%d ",arr[i]);
-	printf("\n");
-	for (int i = 0; i < 10; i++)
-		printf("%d ",arr_ft[i]);
-	printf("\n");
-	
-	bzero(arr, 5);
-	ft_bzero(arr_ft, 5);
-
-	for (int i = 0; i < 10; i++)
-		printf("%d ",arr[i]);
-	printf("\n");
-	for (int i = 0; i < 10; i++)
-		printf("%d ",arr_ft[i]);
-	printf("\n");
-	return (0);
-}
-*/

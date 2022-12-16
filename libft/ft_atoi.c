@@ -34,29 +34,3 @@ int	ft_atoi(const char *str)
 	}
 	return (answer);
 }
-/*
-#include <stdlib.h>
-#include <stdio.h>
-#include <limits.h>
-int	main(void)
-{
-	char	*str;
-
-	str = "214748364880";
-	printf("atoi : %d\n", atoi(str));
-	printf("ft_atoi : %d\n", ft_atoi(str));
-
-	printf("INT_MAX : %d\n", INT_MAX);
-	printf("LONG_MAX : %ld\n", LONG_MAX);
-	printf("LONG_MIN : %ld\n", LONG_MIN);
-	printf("LLONG_MAX : %lld\n", LLONG_MAX);
-	printf("LLONG_MIN : %lld\n", LLONG_MIN);
-
-	printf("atoi(LONG_MAX) : %d\n", atoi("9223372036854775807"));
-	printf("ft_atoi(LONG_MAX) : %d\n", ft_atoi("9223372036854775807"));
-	printf("atoi(LONG_MAX) : %d\n", atoi("-92233720368547758089"));
-	printf("ft_atoi(LONG_MAX) : %d\n", ft_atoi("-92233720368547758089"));
-
-	return (0);
-}
-*/
