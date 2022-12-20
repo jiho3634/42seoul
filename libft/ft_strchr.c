@@ -28,17 +28,3 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *) &s[i]);
 	return (0);
 }
-/*
-#include <string.h>
-#include <stdio.h>
-int	main(void)
-{
-	char	*str;
-	int 	c = '\0';
-
-	str = "";
-	printf("%p\n", ft_strchr(str,c));
-	printf("%p\n", strchr(str, c));
-	return (0);
-}
-*/

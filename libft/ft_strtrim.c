@@ -54,20 +54,3 @@ char	*ft_strtrim(char const *s1, char const *set)
 	}
 	return (s2);
 }
-/*
-#include <stdio.h>
-int	main(void)
-{
-	char s1[] = " lorem ipsum dolor sit amet";
-	printf("%s\n", ft_strtrim(s1, "l "));
-	char s2[] = "lorem ipsum dolor sit amet";
-	printf("%s\n", ft_strtrim(s2, "tel"));
-	char s3[] = "          ";
-	printf("%s\n", ft_strtrim(s3, " "));
-	char s4[] = "lorem ipsum dolor sit amet";
-	printf("%s\n", ft_strtrim(s4, ""));
-	char s5[] = "";
-	printf("%s\n", ft_strtrim(s5, ""));
-	return (0);
-}
-*/

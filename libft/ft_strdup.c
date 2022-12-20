@@ -19,32 +19,12 @@ char	*ft_strdup(const char *s1)
 	char	*ptr;
 
 	len = ft_strlen(s1);
-	if (len == 0)
-	{
-		ptr = malloc (sizeof(char));
-		if (!ptr)
-			return (0);
-		*ptr = 0;
-		return (ptr);
-	}
-	else
-	{
-		ptr = (char *) malloc (sizeof(char) * (len + 1));
-		if (!ptr)
-			return (0);
-		*(ptr + len) = 0;
-		while (len-- > 0)
-			*(ptr + len) = *(s1 + len);
-	}
+	ptr = (char *) malloc (sizeof(char) * (len + 1));
+	if (!ptr)
+		return (0);
+	*(ptr + len) = 0;
+	while (len-- > 0)
+		*(ptr + len) = *(s1 + len);
+	free (ptr);
 	return (ptr);
 }
-/*
-#include <stdio.h>
-int main(void)
-{
-	char	str[] = "lorem ipsum dolor sit amet";
-
-	printf("%s\n", ft_strdup(str));
-	return (0);
-}
-*/

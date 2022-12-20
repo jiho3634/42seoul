@@ -36,7 +36,6 @@ else
 endif
 
 all		:	$(NAME)
-	sleep 1
 
 bonus	:
 	@make BONUS=1

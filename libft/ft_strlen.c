@@ -21,19 +21,3 @@ size_t	ft_strlen(const char *s)
 		len++;
 	return (len);
 }
-/*
-#include <stdio.h>
-#include <string.h>
-
-int main(void)
-{
-	char	*s;
-
-	s = 0;
-
-	printf("%lu\n", strlen(s));
-	printf("%lu\n", ft_strlen(s));
-
-	return (0);
-}
-*/
