@@ -6,26 +6,32 @@
 /*   By: jihokim2 <jihokim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 14:52:24 by jihokim2          #+#    #+#             */
-/*   Updated: 2023/08/07 19:55:26 by jihokim2         ###   ########.fr       */
+/*   Updated: 2023/08/23 11:20:33 by jihokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "header.h"
-#include <stdlib.h>
 
 int	main(int argc, char **argv)
 {
 	t_philo	*philo;
-	t_arg	arg;
+	t_share	share;
 
 	if (argc != 5 && argc != 6)
 		return (error(0, 0));
-	if (!init(argv, &philo, &arg))
-		return (error(philo, 1));
-	monitoring(philo, arg.number);
-	if (arg.number == 1)
-		pthread_detach(philo[0].thread);
-	threads_join(philo);
-	free(philo);
+	if (!init(argv, &philo, &share))
+		return (0);
+	monitoring(philo);
+	if (philo -> philo_number == 1)
+	{
+		if (pthread_detach(philo[0].thread))
+			return (error(philo, 10));
+	}
+	else if (!threads_join(philo))
+		return (0);
+	if (philo)
+	{
+		free(philo);
+		philo = 0;
+	}
 	return (0);
 }

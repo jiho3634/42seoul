@@ -6,53 +6,57 @@
 /*   By: jihokim2 <jihokim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 14:52:24 by jihokim2          #+#    #+#             */
-/*   Updated: 2023/08/04 19:02:39 by jihokim2         ###   ########.fr       */
+/*   Updated: 2023/08/21 12:01:33 by jihokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-static void	get_start_time(t_philo *philo, int number)
+int	threads_join(t_philo *philo)
 {
-	int	temp;
-	int	i;
+	unsigned int	i;
 
-	gettimeofday(&((philo -> arg)-> s_start), NULL);
-	temp = (((philo -> arg)-> s_start).tv_sec * 1000) + \
-					(((philo -> arg)-> s_start).tv_usec / 1000);
-	i = -1;
-	while (++i < number)
-		philo[i].start = temp;
+	i = 0;
+	while (i < philo[0].philo_number)
+	{
+		if (pthread_join(philo[i].thread, NULL))
+			return (error(philo, 9));
+		i++;
+	}
+	return (1);
 }
 
-void	thread_init(t_philo *philo, t_arg *arg)
+void	get_start_time(t_philo *philo)
 {
-	int	i;
-	int	number;
+	struct timeval	temp;
+	unsigned int	start_time;
+	unsigned int	i;
 
-	number = arg -> number;
+	gettimeofday(&temp, NULL);
+	start_time = temp.tv_sec * 1000 + temp.tv_usec / 1000;
+	i = -1;
+	while (++i < philo -> philo_number)
+		philo[i].start_time = start_time;
+}
+
+int	thread_init(t_philo *philo)
+{
+	unsigned int	i;
+
 	i = 0;
-	get_start_time(philo, number);
-	while (i < number)
+	get_start_time(philo);
+	while (i < philo[0].philo_number)
 	{
-		pthread_create(&philo[i].thread, NULL, &routine_odd, &philo[i]);
+		if (pthread_create(&philo[i].thread, NULL, &routine_odd, &philo[i]))
+			return (0);
 		i += 2;
 	}
 	i = 1;
-	while (i < number)
+	while (i < philo[0].philo_number)
 	{
-		pthread_create(&philo[i].thread, NULL, &routine_even, &philo[i]);
+		if (pthread_create(&philo[i].thread, NULL, &routine_even, &philo[i]))
+			return (0);
 		i += 2;
 	}
-}
-
-void	threads_join(t_philo *philo)
-{
-	int	i;
-	int	number;
-
-	number = philo[0].arg -> number;
-	i = -1;
-	while (++i < number)
-		pthread_join(philo[i].thread, NULL);
+	return (1);
 }

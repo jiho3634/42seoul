@@ -6,34 +6,36 @@
 /*   By: jihokim2 <jihokim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 14:52:24 by jihokim2          #+#    #+#             */
-/*   Updated: 2023/08/07 19:55:26 by jihokim2         ###   ########.fr       */
+/*   Updated: 2023/08/23 11:50:49 by jihokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void	get_ate(t_philo *philo)
+void	eating_odd(t_philo *philo)
 {
-	pthread_mutex_lock(&philo -> ate_mutex);
-	gettimeofday(&philo -> s_ate, NULL);
-	philo -> ate = ((philo -> s_ate).tv_sec * 1000) + \
-					((philo -> s_ate).tv_usec / 1000);
-	pthread_mutex_unlock(&philo -> ate_mutex);
+	pthread_mutex_lock(&philo -> left_fork);
+	print(philo, "has taken a fork\n");
+	pthread_mutex_lock(philo -> right_fork);
+	print(philo, "has taken a fork\n");
+	get_ate(philo);
+	print(philo, "is eating\n");
+	ft_usleep(philo, philo -> t_eat);
+	pthread_mutex_unlock(philo -> right_fork);
+	pthread_mutex_unlock(&philo -> left_fork);
 }
 
-static void	decrease_alive_philo(t_philo *philo)
+void	eating_even(t_philo *philo)
 {
-	pthread_mutex_lock(&(philo -> arg)-> alive_mutex);
-	if ((philo -> arg)-> alive_philo != 0)
-		(philo -> arg)-> alive_philo--;
-	pthread_mutex_unlock(&(philo -> arg)-> alive_mutex);
-}
-
-static void	i_am_full(t_philo *philo)
-{
-	pthread_mutex_lock(&philo -> live_mutex);
-	philo -> full = 0;
-	pthread_mutex_unlock(&philo -> live_mutex);
+	pthread_mutex_lock(philo -> right_fork);
+	print(philo, "has taken a fork\n");
+	pthread_mutex_lock(&philo -> left_fork);
+	print(philo, "has taken a fork\n");
+	get_ate(philo);
+	print(philo, "is eating\n");
+	ft_usleep(philo, philo -> t_eat);
+	pthread_mutex_unlock(&philo -> left_fork);
+	pthread_mutex_unlock(philo -> right_fork);
 }
 
 void	*routine_odd(void *void_philo)
@@ -44,13 +46,14 @@ void	*routine_odd(void *void_philo)
 	get_ate(philo);
 	while (philo -> must_eat--)
 	{
-		if (!check_alive_philo(philo))
-			return (NULL);
 		eating_odd(philo);
 		print(philo, "is sleeping\n");
-		ft_usleep(philo -> t_sleep);
+		ft_usleep(philo, philo -> t_sleep);
 		print(philo, "is thinking\n");
-		ft_usleep((philo -> t_die - philo -> t_eat - philo -> t_sleep) / 10);
+		if (philo -> philo_number % 2 == 1)
+			ft_usleep(philo, philo -> t_eat);
+		if (!check_alive_philo(philo))
+			return (NULL);
 	}
 	decrease_alive_philo(philo);
 	i_am_full(philo);
@@ -63,15 +66,18 @@ void	*routine_even(void *void_philo)
 
 	philo = (t_philo *)void_philo;
 	get_ate(philo);
+	print(philo, "is thinking\n");
+	ft_usleep(philo, philo -> t_eat);
 	while (philo -> must_eat--)
 	{
-		print(philo, "is thinking\n");
-		ft_usleep((philo -> t_die - philo -> t_eat - philo -> t_sleep) / 10);
-		if (!check_alive_philo(philo))
-			return (NULL);
 		eating_even(philo);
 		print(philo, "is sleeping\n");
-		ft_usleep(philo -> t_sleep);
+		ft_usleep(philo, philo -> t_sleep);
+		print(philo, "is thinking\n");
+		if (philo -> philo_number % 2 == 1)
+			ft_usleep(philo, philo -> t_eat);
+		if (!check_alive_philo(philo))
+			return (NULL);
 	}
 	decrease_alive_philo(philo);
 	i_am_full(philo);

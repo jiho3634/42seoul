@@ -6,7 +6,7 @@
 /*   By: jihokim2 <jihokim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 14:52:24 by jihokim2          #+#    #+#             */
-/*   Updated: 2023/08/04 16:52:09 by jihokim2         ###   ########.fr       */
+/*   Updated: 2023/08/21 12:00:43 by jihokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_strlen(char *str)
 	return (len);
 }
 
-int	ft_atoi(int *value, const char *str)
+int	ft_atoi(unsigned int *value, const char *str)
 {
 	long long	answer;
 	int			i;

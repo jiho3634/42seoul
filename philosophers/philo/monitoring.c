@@ -6,46 +6,50 @@
 /*   By: jihokim2 <jihokim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 14:52:24 by jihokim2          #+#    #+#             */
-/*   Updated: 2023/08/07 19:55:26 by jihokim2         ###   ########.fr       */
+/*   Updated: 2023/08/21 12:27:11 by jihokim2         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-static int	check_full(t_philo *philo)
+int	check_full(t_philo *philo)
 {
-	int	temp;
+	unsigned int	temp;
 
-	pthread_mutex_lock(&philo -> live_mutex);
+	pthread_mutex_lock(&philo -> full_mutex);
 	temp = philo -> full;
-	pthread_mutex_unlock(&philo -> live_mutex);
+	pthread_mutex_unlock(&philo -> full_mutex);
 	return (temp);
 }
 
-static int	check_past(t_philo *philo)
+int	check_time(t_philo *philo)
 {
-	int	past;
-	int	now;
+	struct timeval	temp;
+	unsigned int	past;
+	unsigned int	now;
 
-	gettimeofday(&(philo -> now_monitor), NULL);
-	now = ((philo -> now_monitor).tv_sec * 1000) + \
-			((philo -> now_monitor).tv_usec / 1000);
+	gettimeofday(&temp, NULL);
+	now = (temp.tv_sec * 1000) + temp.tv_usec / 1000;
 	pthread_mutex_lock(&philo -> ate_mutex);
-	past = (now - philo -> ate);
+	if (philo -> ate_time == 0)
+	{
+		pthread_mutex_unlock(&philo -> ate_mutex);
+		return (0);
+	}
+	past = (now - philo -> ate_time);
 	pthread_mutex_unlock(&philo -> ate_mutex);
 	return (past - philo -> t_die);
 }
 
-static int	is_die(t_philo *philo)
+int	is_die(t_philo *philo)
 {
 	if (check_full(philo))
 	{
-		if (check_past(philo) > 0)
+		if (check_time(philo) > 0)
 		{
-			pthread_mutex_lock(&(philo -> arg)-> alive_mutex);
-			(philo -> arg)-> alive_philo = 0;
-			pthread_mutex_unlock(&(philo -> arg)-> alive_mutex);
-			ft_usleep(5);
+			pthread_mutex_lock(&(philo -> share)-> alive_mutex);
+			(philo -> share)-> alive_number = 0;
+			pthread_mutex_unlock(&(philo -> share)-> alive_mutex);
 			print_died(philo, "died\n");
 			return (1);
 		}
@@ -53,17 +57,21 @@ static int	is_die(t_philo *philo)
 	return (0);
 }
 
-int	monitoring(t_philo *philo, int number)
+int	monitoring(t_philo *philo)
 {
-	int	i;
+	unsigned int	philo_number;
+	unsigned int	i;
 
+	philo_number = philo[0].philo_number;
 	while (check_alive_philo(philo))
 	{
-		i = -1;
-		while (++i < number)
+		i = 0;
+		while (i < philo_number)
 		{
 			if (is_die(&philo[i]))
 				return (0);
+			i++;
+			usleep(100);
 		}
 	}
 	return (1);
