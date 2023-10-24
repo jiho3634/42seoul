@@ -34,14 +34,14 @@ void	ft_move(t_mlx *mlx, double theta)
 	py += (int)(ry * 10);
 	if (ft_is_wall(mlx, px, py) == 1)
 		return ;
-	ft_draw_range_of_ray(mlx, 0x000000);
+    ft_draw_cam_plane(mlx, 0x000000, 0x000000, 0x000000);
 	ft_draw_player(mlx, 0x000000);
 	ft_draw_grid(mlx, 0, 0xFFFFFF);
 	ft_draw_grid(mlx, 1, 0xFF0000);
 	mlx->ray.posX = px;
 	mlx->ray.posY = py;
 	ft_draw_player(mlx, 0xFFFF00);
-	ft_draw_range_of_ray(mlx, 0xffff00);
+    ft_draw_cam_plane(mlx, 0x00FF00, 0x0000FF, 0x808080);
 }
 
 int	ft_key_press(int keycode, t_mlx *mlx)

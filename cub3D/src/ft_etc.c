@@ -3,11 +3,6 @@
 int	ft_end_game(t_mlx *mlx)
 {
 	mlx_destroy_window(mlx->mlx, mlx->mini);
-	exit(0);
-}
-
-int	ft_end_3d(t_mlx *mlx)
-{
 	mlx_destroy_window(mlx->mlx, mlx->win);
 	exit(0);
 }
@@ -30,5 +25,9 @@ void  ft_init(t_mlx *mlx, int ac, char **av)
 	ft_draw_player(mlx, 0xFFFF00);
 	mlx->ray.dirX = -1;
 	mlx->ray.dirY = 0;
-	ft_draw_range_of_ray(mlx, 0xffff00);
+	mlx->ray.cam_plane_len = mlx->ray.grid_width * 3;
+	mlx->ddd.ratio = screenWidth / mlx->ray.cam_plane_len;
+    mlx->ddd.diagonal = sqrt(screenWidth * screenWidth + screenHeight * screenHeight);
+    ft_draw_cam_plane(mlx, 0x00FF00, 0x0000FF, 0x808080);
+	// ft_draw_range_of_ray(mlx, 0xffff00);
 }
