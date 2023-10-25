@@ -1,5 +1,12 @@
 #include "../inc/cub3d.h"
 
+int	ft_end_game(t_mlx *mlx)
+{
+	mlx_destroy_window(mlx->mlx, mlx->mini);
+	mlx_destroy_window(mlx->mlx, mlx->win);
+	exit(0);
+}
+
 int	ft_is_wall(t_mlx *mlx, double px, double py)
 {
     double	angle;
@@ -19,6 +26,23 @@ int	ft_is_wall(t_mlx *mlx, double px, double py)
 	return (0);
 }	
 
+void	ft_remove_screen(t_mlx *mlx)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (++i < screenHeight)
+	{
+		j = -1;
+		while (++j < screenWidth)
+		{
+			mlx_pixel_put(mlx->mlx, mlx->win, j, i, 0x000000);
+			mlx_pixel_put(mlx->mlx, mlx->mini, j, i, 0x000000);
+		}
+	}
+}
+
 void	ft_move(t_mlx *mlx, double theta)
 {
 	double	rx;
@@ -34,8 +58,9 @@ void	ft_move(t_mlx *mlx, double theta)
 	py += (int)(ry * 10);
 	if (ft_is_wall(mlx, px, py) == 1)
 		return ;
-    ft_draw_cam_plane(mlx, 0x000000, 0x000000, 0x000000);
-	ft_draw_player(mlx, 0x000000);
+    // ft_draw_cam_plane(mlx, 0x000000, 0x000000, 0x000000);
+	// ft_draw_player(mlx, 0x000000);
+	ft_remove_screen(mlx);
 	ft_draw_grid(mlx, 0, 0xFFFFFF);
 	ft_draw_grid(mlx, 1, 0xFF0000);
 	mlx->ray.posX = px;

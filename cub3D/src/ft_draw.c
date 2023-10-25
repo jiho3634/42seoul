@@ -14,12 +14,12 @@ void	ft_draw_rectagle(t_mlx *mlx, int x, int y, int color)
 	w = mlx->ray.grid_width;
 	h = mlx->ray.grid_height;
 	i = 0;
-	while (i <= h)
+	while (i < h)
 	{
 		j = 0;
-		while (j <= w)
+		while (j < w)
 		{
-			if (i == 0 || i == h || j == 0 || j == w)
+			if (i == 0 || i == h - 1 || j == 0 || j == w - 1)
 				mlx_pixel_put(m_m, w_m, x * w + j, y * h + i, color);
 			j++;
 		}
