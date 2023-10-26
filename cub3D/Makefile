@@ -35,7 +35,7 @@ $(BUILDDIR)		:
 $(BUILDDIR)%.o	:	$(SRCDIR)%.c
 					$(CC) $(CFLAGS) $(INC) -o $@ -c $<
 
-$(NAME)			: 	$(BUILDOBJS) $(MLX) ./inc/cub3d.h
+$(NAME)			: 	$(BUILDOBJS) $(MLX) ./inc/cub3d.h ./map.cub
 					$(CC) $(CFLAGS) -o $(NAME) $(BUILDOBJS) $(MLXFLAG)
 
 $(MLX)			:
