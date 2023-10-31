@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihokim2 <jihokim2@student.42seoul.>       +#+  +:+       +#+        */
+/*   By: jihokim2 <jihokim2@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:26:33 by jihokim2          #+#    #+#             */
 /*   Updated: 2022/12/23 14:32:07 by jihokim2         ###   ########.fr       */

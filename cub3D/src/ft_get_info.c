@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_get_info.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jihokim2 <jihokim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/28 12:59:20 by jihokim2          #+#    #+#             */
+/*   Updated: 2023/10/28 13:02:32 by jihokim2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/cub3d.h"
 
 void	ft_get_texture(t_mlx *mlx, char *line)
@@ -6,7 +18,7 @@ void	ft_get_texture(t_mlx *mlx, char *line)
 		return ;
 	while (ft_is_space(*line) == TRUE)
 		line++;
-	if (*line == '\0')	
+	if (*line == '\0')
 		return ;
 	else if (ft_strcmp(line, "NO ") == TRUE)
 		mlx->data.north = ft_strcpy(mlx, line + 3);
@@ -87,12 +99,13 @@ void	ft_get_info(t_mlx *mlx)
 	{
 		mlx->data.line = get_next_line(mlx->data.fd);
 		if (mlx->data.line == NULL)
-			break;
+			break ;
 		ft_get_texture(mlx, mlx->data.line);
-		ft_free(&mlx->data.line);
+		ft_free_line(mlx);
+		mlx->data.line = NULL;
 		if (mlx->data.north && mlx->data.south && mlx->data.west && \
 			mlx->data.east && mlx->data.floor && mlx->data.ceiling)
-			break;
+			break ;
 	}
 	mlx->data.intfloor = ft_edit_color(mlx, mlx->data.floor);
 	mlx->data.intceiling = ft_edit_color(mlx, mlx->data.ceiling);

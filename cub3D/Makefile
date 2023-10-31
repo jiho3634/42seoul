@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3D
+NAME = cub3d
 
 SRCDIR			=	./src/
 SRCNAMES		=	$(shell ls $(SRCDIR) | grep -E ".+\.c")

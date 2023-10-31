@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jihokim2 <jihokim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/28 12:47:30 by jihokim2          #+#    #+#             */
+/*   Updated: 2023/10/28 12:48:38 by jihokim2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/cub3d.h"
 
 int	ft_is_space(char c)
@@ -24,17 +36,6 @@ size_t	ft_strlen(char *str)
 	return (len);
 }
 
-void	*ft_calloc(t_mlx *mlx, size_t count, size_t size)
-{
-	void	*arr;
-
-	arr = (void *)malloc(count * size);
-	if (!arr)
-		ft_free_mlx(mlx);
-	ft_bzero (arr, (count * size));
-	return (arr);
-}
-
 char	*ft_strcpy(t_mlx *mlx, char *str)
 {
 	char	*tmp;
@@ -43,7 +44,7 @@ char	*ft_strcpy(t_mlx *mlx, char *str)
 
 	if (*str == '\0')
 		return (NULL);
-	len = ft_strlen(str);	
+	len = ft_strlen(str);
 	tmp = (char *)ft_calloc(mlx, len + 1, sizeof(char));
 	i = 0;
 	while (i <= len)
@@ -72,16 +73,4 @@ int	ft_is_num(char c)
 	if (c >= '0' && c <= '9')
 		return (TRUE);
 	return (FALSE);
-}
-
-void	ft_bzero(void *str, size_t size)
-{
-	unsigned char	*ptr;
-
-	if (!size)
-		return ;
-	ptr = (unsigned char *)str;
-	while (--size > 0)
-		ptr[size] = 0;
-	ptr[size] = 0;
 }

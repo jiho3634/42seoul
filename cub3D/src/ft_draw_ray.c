@@ -1,137 +1,47 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_draw_ray.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jihokim2 <jihokim2@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/28 13:05:17 by jihokim2          #+#    #+#             */
+/*   Updated: 2023/10/28 13:07:29 by jihokim2         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/cub3d.h"
 
-void    ft_draw_cam_ray(t_mlx *mlx, double camX, double camY, int color)
+void	ft_draw_cam_plane(t_mlx *mlx)
 {
-    int rayX;
-    int rayY;
-    int i;
+	double	x[2];
+	double	y[2];
+	double	len;
 
-    i = 1;
-    while (1)
-    {
-        rayX = camX + i * mlx->ray.dirX;
-        rayY = camY + i * mlx->ray.dirY;
-        mlx_pixel_put(mlx->mlx, mlx->mini, rayX, rayY, color);
-        if (map[rayY / mlx->ray.grid_height][rayX / mlx->ray.grid_width] == 1)
-        {
-            mlx->ddd.rayX = rayX;
-            mlx->ddd.rayY = rayY;
-            break ;
-        }
-        i++;
-    }
+	len = mlx->ray.cam_plane_len;
+	x[0] = mlx->ray.pos_x + \
+		len * (mlx->ray.dir_x * cos(M_PI / 2) - mlx->ray.dir_y * sin(M_PI / 2));
+	y[0] = mlx->ray.pos_y + \
+		len * (mlx->ray.dir_x * sin(M_PI / 2) + mlx->ray.dir_y * cos(M_PI / 2));
+	x[1] = mlx->ray.pos_x + \
+	len * (mlx->ray.dir_x * cos(-M_PI / 2) - mlx->ray.dir_y * sin(-M_PI / 2));
+	y[1] = mlx->ray.pos_y + \
+	len * (mlx->ray.dir_x * sin(-M_PI / 2) + mlx->ray.dir_y * cos(-M_PI / 2));
+	ft_draw_line(mlx, x, y);
 }
 
-void    ft_draw_line(t_mlx *mlx, double x[2], double y[2], int wall, int ceiling, int floor)
+void	ft_rotate(t_mlx *mlx, double angle)
 {
-    double  m;
-    double  camX;
-    double  camY;
-    double  i;
+	double	rx;
+	double	ry;
 
-    i = 0;
-    m = mlx->ray.dirY / mlx->ray.dirX; 
-    if (m < 1 && m > -1) 
-    {
-        if (y[0] < y[1])
-        {
-            mlx->ddd.ratio = screenWidth / (y[1] - y[0]);
-            while (y[0] + i <= y[1])
-            {
-                camY = y[0] + i;
-                camX = (camY - mlx->ray.posY) * (-m) + mlx->ray.posX;
-                mlx_pixel_put(mlx->mlx, mlx->mini, camX, camY, wall);
-                ft_draw_cam_ray(mlx, camX, camY, wall);
-                ft_distance(mlx);
-                ft_draw_wall(mlx, screenWidth - i * mlx->ddd.ratio, wall);
-                ft_draw_ceiling(mlx, screenWidth - i * mlx->ddd.ratio, ceiling);
-                ft_draw_floor(mlx, screenWidth - i * mlx->ddd.ratio, floor);
-                i += 1;
-            }
-        }
-        else
-        {
-            mlx->ddd.ratio = screenWidth / (y[0] - y[1]);
-            while (y[1] + i <= y[0])
-            {
-                camY = y[1] + i;
-                camX = (camY - mlx->ray.posY) * (-m) + mlx->ray.posX;
-                mlx_pixel_put(mlx->mlx, mlx->mini, camX, camY, wall);
-                ft_draw_cam_ray(mlx, camX, camY, wall);
-                ft_distance(mlx);
-                ft_draw_wall(mlx, i * mlx->ddd.ratio, wall);
-                ft_draw_ceiling(mlx, i * mlx->ddd.ratio, ceiling);
-                ft_draw_floor(mlx, i * mlx->ddd.ratio, floor);
-                i += 1;
-            }
-        }
-        camX = (camY - mlx->ray.posY) * m + mlx->ray.posX;
-    }
-    else 
-    {
-        if (x[0] < x[1])
-        {
-            mlx->ddd.ratio = screenWidth / (x[1] - x[0]);
-            while (x[0] + i <= x[1])
-            {
-                camX = x[0] + i;
-                camY = (camX - x[0]) / (-m) + y[0];
-                mlx_pixel_put(mlx->mlx, mlx->mini, camX, camY, wall);
-                ft_draw_cam_ray(mlx, camX, camY, wall);
-                ft_distance(mlx);
-                ft_draw_wall(mlx, screenWidth - i * mlx->ddd.ratio, wall);
-                ft_draw_ceiling(mlx, screenWidth - i * mlx->ddd.ratio, ceiling);
-                ft_draw_floor(mlx, screenWidth - i * mlx->ddd.ratio, floor);
-                i += 1;
-            }
-        }
-        else
-        {
-            mlx->ddd.ratio = screenWidth / (x[0] - x[1]);
-            while (x[1] + i <= x[0])
-            {
-                camX = x[1] + i;
-                camY = (camX - x[0]) / (-m) + y[0];
-                mlx_pixel_put(mlx->mlx, mlx->mini, camX, camY, wall);
-                ft_draw_cam_ray(mlx, camX, camY, wall);
-                ft_distance(mlx);
-                ft_draw_wall(mlx, i * mlx->ddd.ratio, wall);
-                ft_draw_ceiling(mlx, i * mlx->ddd.ratio, ceiling);
-                ft_draw_floor(mlx, i * mlx->ddd.ratio, floor);
-                i += 1;
-            }
-        }
-    }
-}
-
-void    ft_draw_cam_plane(t_mlx *mlx, int wall, int ceiling, int floor)
-{
-    double  x[2];
-    double  y[2];
-    double  len;
-
-    len = mlx->ray.cam_plane_len;
-    x[0] = mlx->ray.posX + len * (mlx->ray.dirX * cos(M_PI/ 2) -  mlx->ray.dirY * sin(M_PI / 2));
-    y[0] = mlx->ray.posY + len * (mlx->ray.dirX * sin(M_PI / 2) +  mlx->ray.dirY * cos(M_PI / 2));
-    x[1] = mlx->ray.posX + len * (mlx->ray.dirX * cos(-M_PI/ 2) -  mlx->ray.dirY * sin(-M_PI / 2));
-    y[1] = mlx->ray.posY + len * (mlx->ray.dirX * sin(-M_PI / 2) +  mlx->ray.dirY * cos(-M_PI / 2));
-    ft_draw_line(mlx, x, y, wall, ceiling, floor);
-}
-
-void    ft_rotate(t_mlx *mlx, double angle)
-{
-    double rx;
-    double ry;
-
-    rx = mlx->ray.dirX * cos(angle) -  mlx->ray.dirY * sin(angle);
-    ry = mlx->ray.dirX * sin(angle) +  mlx->ray.dirY * cos(angle);
-    // ft_draw_cam_plane(mlx, 0x000000, 0x000000, 0x000000);
-	// ft_draw_player(mlx, 0x000000);
+	rx = mlx->ray.dir_x * cos(angle) - mlx->ray.dir_y * sin(angle);
+	ry = mlx->ray.dir_x * sin(angle) + mlx->ray.dir_y * cos(angle);
 	ft_remove_screen(mlx);
-	ft_draw_grid(mlx, 0, 0xFFFFFF);
-	ft_draw_grid(mlx, 1, 0xFF0000);
-    mlx->ray.dirX = rx;
-    mlx->ray.dirY = ry;
+	ft_draw_grid(mlx, '0', 0xFFFFFF);
+	ft_draw_grid(mlx, '1', 0xFF0000);
+	mlx->ray.dir_x = rx;
+	mlx->ray.dir_y = ry;
 	ft_draw_player(mlx, 0xFFFF00);
-    ft_draw_cam_plane(mlx, 0x00FF00, 0x0000FF, 0x808080);
+	ft_draw_cam_plane(mlx);
 }
