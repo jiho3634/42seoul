@@ -1,30 +1,16 @@
 #include <iostream>
+#include <cctype>
+#include <string>
 
-char    *ft_megaphone(char *av)
-{
-    int i;
-
-    i = -1;
-    while (av[++i])
-    {
-        if (av[i] >= 'a' && av[i] <= 'z')
-            av[i] -= 32;
+int main(int ac, char **av) {
+	if (ac == 1)
+    	return std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl, 0;
+    for (int i = 1; i < ac; ++i) {
+        std::string str(av[i]);
+        for (std::string::iterator it = str.begin(); it != str.end(); ++it) {
+            *it = std::toupper(static_cast<unsigned char>(*it));
+        }
+        std::cout << str;
     }
-    return (av);
-}
-
-int main(int ac, char **av)
-{
-    int i;
-
-    if (ac == 1)
-    {
-        std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
-        return (0);
-    }
-    i = 0;    
-    while (av[++i])
-        std::cout << ft_megaphone(av[i]);
-    std::cout << std::endl;
-    return (0);
+	return std::cout << std::endl, 0;
 }

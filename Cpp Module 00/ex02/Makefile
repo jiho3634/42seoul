@@ -1,13 +1,12 @@
-NAME			=	PhoneBook
+NAME			=	tests
 
 SRC				=	$(shell ls | grep -E ".+\.cpp")
-HEADER			=	$(shell ls | grep -E ".+\.hpp")
 CC				=	c++
 CFLAGS			=	-Wall -Werror -Wextra -std=c++98
 
 all				:	$(NAME)
 
-$(NAME)			:	$(SRC) $(HEADER)
+$(NAME)			:	$(SRC)
 					$(CC) $(CFLAGS) $(SRC) -o $(NAME)
 clean			:
 					@#

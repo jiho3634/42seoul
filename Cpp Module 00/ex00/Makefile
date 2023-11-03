@@ -2,13 +2,16 @@ NAME			=	megaphone
 
 SRC				=	$(shell ls | grep -E ".+\.cpp")
 HEADER			=	$(shell ls | grep -E ".+\.hpp")
-CC				=	g++
-CFLAGS			=	-Wall -Werror -Wextra -std=c++98
+CC				=	c++
+CXXFLAGS		=	-Wall -Werror -Wextra -std=c++98
 
 all				:	$(NAME)
 
 $(NAME)			:	$(SRC) $(HEADER)
-					$(CC) $(CFLAGS) $(SRC) -o $(NAME)
+					$(CC) $(CXXFLAGS) $(SRC) -o $(NAME)
+
+clean			:
+					@#nothing
 
 fclean			:	clean
 					rm -rf $(NAME)

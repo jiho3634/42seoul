@@ -2,16 +2,23 @@
 # define CONTACT_HPP
 
 # include <string>
+# include <iostream>
+# include <iomanip>
+
+#define OK 0
 
 class Contact
 {
-    public:
+	private:
+		std::string	item[5];
+        std::string info[5];
         int         index;
-        std::string first;
-        std::string last;
-        std::string nickname;
-        std::string number;
-        std::string secret;
+    public:
+		int			getIndex();
+		int			tmp(int i);
+		int			add(int mod);
+		void		printTable();
+		void		printInfo();
         Contact();
         ~Contact();
 };
