@@ -25,7 +25,7 @@ void identify(Base* p) {
     else std::cout << "Unknown" << std::endl;
 }
 
-void identify(Base& p) {
+void identify(Base& p) {    //참조는 NULL값을 가질 수 없으므로, 예외를 던진다.
     try {
         (void)dynamic_cast<A&>(p);
         std::cout << "A" << std::endl;
@@ -47,13 +47,13 @@ void identify(Base& p) {
 int main() {
     srand(time(NULL)); // 난수 초기화
 
-    // for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < 1; ++i) {
         Base* base = generate();
         identify(base);
         identify(*base);
         delete base;
-        // std::cout << std::endl;
-    // }
+        std::cout << std::endl;
+    }
 
     return 0;
 }
