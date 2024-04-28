@@ -1,0 +1,74 @@
+version: '3.8'
+services:
+  mariadb:
+    build:
+      context: ./requirements/mariadb
+    init: true
+    restart: always
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - default
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "${MYSQL_USER}", "--password=${MYSQL_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  wordpress:
+    build: ./requirements/wordpress
+    restart: always
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    volumes:
+      - wordpress_data:/var/www/wordpress
+    networks:
+      - default
+    environment:
+      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+      ADMIN_USER: ${ADMIN_USER}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      GUEST_USER: ${GUEST_USER}
+      GUEST_PASSWORD: ${GUEST_PASSWORD}
+      GUEST_EMAIL: ${GUEST_EMAIL}
+      DOMAIN_NAME: ${DOMAIN_NAME}
+
+  nginx:
+    build: ./requirements/nginx
+    restart: always
+    depends_on:
+      - wordpress
+    volumes:
+      - wordpress_data:/var/www/wordpress
+    networks:
+      - default
+    ports:
+      - "443:443"
+
+volumes:
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/jihokim2/data/wordpress
+      o: bind
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/jihokim2/data/mariadb
+      o: bind
+
+networks:
+  default:
+    driver: bridge
